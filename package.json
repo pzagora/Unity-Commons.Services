@@ -1,0 +1,14 @@
+{
+  "name": "com.zagoradev.unity.commons.services",
+  "displayName": "Unity Commons Services (zagora.dev)",
+  "version": "1.0.0",
+  "unity": "6000.0",
+  "description": "Runtime services for Unity Commons, starting with CoroutineService. Compiles into the Commons assembly via an assembly definition reference, so it requires Unity Commons.",
+  "keywords": [
+    "unity",
+    "services",
+    "coroutine",
+    "commons",
+    "zagora.dev"
+  ]
+}
