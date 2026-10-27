@@ -11,11 +11,16 @@ This package is **not standalone**. Its `Runtime/` carries a `.asmref` pointing 
 
 ## Installation
 
-Add both packages to `Packages/manifest.json`:
+Install from the zagora.dev UPM registry — add the scoped registry (and OpenUPM, for UniTask) to `Packages/manifest.json`, then the package; its dependencies install automatically:
 
 ```json
-"com.zagoradev.unity.commons": "https://github.com/pzagora/Unity-Commons.git",
-"com.zagoradev.unity.commons.services": "https://github.com/pzagora/Unity-Commons.Services.git"
+"scopedRegistries": [
+    { "name": "zagora.dev", "url": "https://upm.zagora.dev", "scopes": [ "com.zagoradev" ] },
+    { "name": "OpenUPM", "url": "https://package.openupm.com", "scopes": [ "com.cysharp" ] }
+],
+"dependencies": {
+  "com.zagoradev.unity.commons.services": "1.2.2"
+}
 ```
 
 Requires Unity `6000.0+`.

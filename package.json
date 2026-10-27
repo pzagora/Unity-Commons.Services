@@ -1,7 +1,7 @@
 {
   "name": "com.zagoradev.unity.commons.services",
   "displayName": "Unity Commons Services (zagora.dev)",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "unity": "6000.0",
   "description": "Runtime services for Unity Commons: CoroutineService and SceneService<TScene> (enum-keyed scene loading with swappable scenes). Compiles into the Commons assembly via an assembly definition reference, so it requires Unity Commons.",
   "documentationUrl": "https://github.com/pzagora/Unity-Commons.Services/blob/main/README.md",
@@ -20,6 +20,6 @@
     "zagora.dev"
   ],
   "dependencies": {
-    "com.zagoradev.unity.commons": "https://github.com/pzagora/Unity-Commons.git"
+    "com.zagoradev.unity.commons": "2.1.3"
   }
 }
