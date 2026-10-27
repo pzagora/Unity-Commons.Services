@@ -1,6 +1,9 @@
 # Unity Commons — Services
 
-Runtime services for Unity Commons. Currently `CoroutineService` (with `ICoroutineService` and `CoroutineData`) for running coroutines detached from a specific `MonoBehaviour`.
+Runtime services for Unity Commons:
+
+- `CoroutineService` (with `ICoroutineService` and `CoroutineData`) — runs coroutines detached from a specific `MonoBehaviour`.
+- `SceneService<TScene>` (with `ISceneService<TScene>`, namespace `Commons.Scenes`) — build-settings scene loading keyed by an enum whose values are build indices. Concurrent async loads of the same scene share one operation, and *swappable* scenes replace each other: loading one unloads the others.
 
 ## Dependency
 
@@ -25,3 +28,24 @@ using Commons;
 ICoroutineService coroutines = /* resolved CoroutineService */;
 coroutines.Run(MyRoutine());
 ```
+
+### Scenes
+
+Subclass once per project to bind the scene enum and the swappable set:
+
+```csharp
+using Commons.Scenes;
+
+public interface ISceneService : ISceneService<Scene> { }
+
+public sealed class SceneService : SceneService<Scene>, ISceneService
+{
+    private static readonly Scene[] SwappableScenes = { Scene.Landing, Scene.Meta, Scene.Match };
+
+    public SceneService() : base(SwappableScenes) { }
+}
+
+await sceneService.LoadSceneAsync(Scene.Meta, progress, ct);
+```
+
+Messages go through `CommonsLog` (Unity Reporter when present); override `Log` to redirect them.

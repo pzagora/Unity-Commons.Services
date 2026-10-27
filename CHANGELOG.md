@@ -2,6 +2,11 @@
 
 All notable changes to this package are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this package adheres to Semantic Versioning.
 
+## [1.1.0]
+
+### Added
+- `SceneService<TScene>` / `ISceneService<TScene>` (namespace `Commons.Scenes`) — build-settings scene loading keyed by an enum whose values are build indices. Concurrent async loads of one scene share an operation; scenes passed as *swappable* replace each other (loading one unloads the others). Projects subclass it to bind their enum and swappable set. Logs through `CommonsLog` (requires Unity Commons 2.1.0+); override `Log` to redirect.
+
 ## [1.0.1]
 
 ### Added
