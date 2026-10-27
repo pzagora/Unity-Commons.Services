@@ -20,6 +20,6 @@
     "zagora.dev"
   ],
   "dependencies": {
-    "com.zagoradev.unity.commons": "2.1.3"
+    "com.zagoradev.unity.commons": "2.1.4"
   }
 }
