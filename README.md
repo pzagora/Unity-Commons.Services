@@ -40,9 +40,7 @@ public interface ISceneService : ISceneService<Scene> { }
 
 public sealed class SceneService : SceneService<Scene>, ISceneService
 {
-    private static readonly Scene[] SwappableScenes = { Scene.Landing, Scene.Meta, Scene.Match };
-
-    public SceneService() : base(SwappableScenes) { }
+    public override IReadOnlyCollection<Scene> SwappableScenes { get; } = new[] { Scene.Landing, Scene.Meta, Scene.Match };
 }
 
 await sceneService.LoadSceneAsync(Scene.Meta, progress, ct);

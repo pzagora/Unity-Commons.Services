@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -11,7 +12,8 @@ namespace Commons.Scenes
     /// <summary>
     /// Build-settings scene loading keyed by an enum whose values are the scenes' build indices. Concurrent async loads
     /// of the same scene share one operation, and the <see cref="SwappableScenes"/> replace each other: loading one
-    /// unloads the others. Projects subclass it to bind their enum and swappable set. Messages go through
+    /// unloads the others. Projects subclass it to bind their enum and override <see cref="SwappableScenes"/> (none by
+    /// default). Messages go through
     /// <see cref="CommonsLog"/> (Reporter when present, otherwise the Unity console); override <see cref="Log"/> to redirect them.
     /// </summary>
     public class SceneService<TScene> : ISceneService<TScene>
@@ -29,16 +31,8 @@ namespace Commons.Scenes
 
         private readonly Dictionary<TScene, UniTaskCompletionSource<Scene>> _inFlightLoads = new();
         private readonly object _gate = new();
-        private readonly HashSet<TScene> _swappableScenes;
 
-        public SceneService(IEnumerable<TScene> swappableScenes = null)
-        {
-            _swappableScenes = swappableScenes != null
-                ? new HashSet<TScene>(swappableScenes)
-                : new HashSet<TScene>();
-        }
-
-        public IReadOnlyCollection<TScene> SwappableScenes => _swappableScenes;
+        public virtual IReadOnlyCollection<TScene> SwappableScenes => Array.Empty<TScene>();
 
         #region Public Methods
 
@@ -247,10 +241,11 @@ namespace Commons.Scenes
             IProgress<float> progress,
             CancellationToken ct)
         {
-            if (!_swappableScenes.Contains(requestedScene))
+            var swappableScenes = SwappableScenes;
+            if (!swappableScenes.Contains(requestedScene))
                 return;
 
-            foreach (var scene in _swappableScenes)
+            foreach (var scene in swappableScenes)
             {
                 if (EqualityComparer<TScene>.Default.Equals(scene, requestedScene))
                     continue;

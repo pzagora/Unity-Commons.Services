@@ -2,6 +2,11 @@
 
 All notable changes to this package are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and this package adheres to Semantic Versioning.
 
+## [1.2.0]
+
+### Changed
+- `SceneService<TScene>.SwappableScenes` is now `virtual` (empty by default) and replaces the constructor parameter: subclasses override it to declare their swappable set. Remove the `base(...)` call and override the property instead.
+
 ## [1.1.0]
 
 ### Added
